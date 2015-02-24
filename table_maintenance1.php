@@ -1,29 +1,48 @@
 <?php
 /*
-CREATE TABLE `proveedores` (
-  `prvid` BIGINT(8) NOT NULL AUTO_INCREMENT,
-  `prvdsc` VARCHAR(45) NOT NULL,
-  `prvemail` VARCHAR(120) NULL,
-  `prvtel` VARCHAR(20) NULL,
-  `prvcont` VARCHAR(60) NULL,
-  `prvdir` VARCHAR(120) NULL,
-  `prvest` CHAR(3) NULL,
-  PRIMARY KEY (`prvid`));
-CREATE TABLE `productos` (
-    `prdid` BIGINT(8) NOT NULL AUTO_INCREMENT,
-    `prddsc` VARCHAR(60) NULL,
-    `prdbrc` VARCHAR(45) NULL,
-    `prdctd` INT NULL,
-    `prdest` CHAR(3) NULL,
-    `ctgid` BIGINT(8) NULL,
-    PRIMARY KEY (`prdid`));
 CREATE TABLE `categorias` (
       `ctgid` BIGINT(8) NOT NULL AUTO_INCREMENT,
       `ctgdsc` VARCHAR(45) NULL,
       `ctgest` CHAR(3) NULL,
       PRIMARY KEY (`ctgid`));
  */
+ $txtDsc = "";
+ $cmbEst = "ACT";
+ $last = "";
+ $conn = new mysqli("127.0.0.1","root",
+                    "root","nw201501");
 
+ if($conn->errno){
+   die($conn->error);
+ }
+
+ if(isset($_POST["btnSave"])){
+   $txtDsc = $_POST["txtDsc"];
+   $cmbEst = $_POST["cmbEst"];
+
+   $insertSQL = "Insert into categorias (ctgdsc, ctgest) ";
+   $insertSQL .= "value ('".$txtDsc."','".$cmbEst."');";
+
+   $inserted = $conn->query($insertSQL);
+
+   $last = $conn->insert_id;
+
+ }
+
+ $str = "SELECT * from categorias;";
+ $cursor = $conn->query($str);
+ $categorias = array();
+ while($registro = $cursor->fetch_assoc()){
+   //obtenga el registro de forma associativa
+   /* $registro = array(
+          "ctgid"=> 1,
+          "ctgdsc"=> "Algun Valor",
+          "ctgest"=> "ACT"
+    );
+    */
+   $categorias[]=$registro;
+ }
+ 
 ?>
 
 <!DOCTYPE HTML>

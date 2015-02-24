@@ -1,14 +1,6 @@
 <?php
 /*
-CREATE TABLE `proveedores` (
-  `prvid` BIGINT(8) NOT NULL AUTO_INCREMENT,
-  `prvdsc` VARCHAR(45) NOT NULL,
-  `prvemail` VARCHAR(120) NULL,
-  `prvtel` VARCHAR(20) NULL,
-  `prvcont` VARCHAR(60) NULL,
-  `prvdir` VARCHAR(120) NULL,
-  `prvest` CHAR(3) NULL,
-  PRIMARY KEY (`prvid`));
+
 CREATE TABLE `productos` (
     `prdid` BIGINT(8) NOT NULL AUTO_INCREMENT,
     `prddsc` VARCHAR(60) NULL,
@@ -17,12 +9,36 @@ CREATE TABLE `productos` (
     `prdest` CHAR(3) NULL,
     `ctgid` BIGINT(8) NULL,
     PRIMARY KEY (`prdid`));
-CREATE TABLE `categorias` (
-      `ctgid` BIGINT(8) NOT NULL AUTO_INCREMENT,
-      `ctgdsc` VARCHAR(45) NULL,
-      `ctgest` CHAR(3) NULL,
-      PRIMARY KEY (`ctgid`));
  */
+$txtdsc = "";
+$txtbrc = "";
+$intctd = 0;
+$txtest = "";
+$intid = 0;
+
+$conn = new mysqli("127.0.0.1","root",
+                    "root","");
+ if($conn->errno){
+   die($conn->error);
+   
+   
+if(isset($_POST["btnSave"])){
+   $txtdsc = $_POST["txtdsc"];
+   $txtbrc = $_POST["txtbrc"];
+   $intctd = $_POST["intctd"];
+   $txtest = $_POST["txtest"];
+   $intid = $_POST["intid"];
+
+   $insertSQL = "Insert into categorias (txtdsc, txtbrc, intctd, txtest, intid) ";
+   $insertSQL .= "value ('".$txtdsc."','".$txtbrc."','".$intctd."','".$txtest."','".$intid."');";
+   $inserted = $conn->query($insertSQL);
+   
+   $last = $conn->insert_id;}
+   
+   
+   $str = "SELECT * from productos;";
+ $cursor = $conn->query($str);
+ $categorias = array();
 
 ?>
 
