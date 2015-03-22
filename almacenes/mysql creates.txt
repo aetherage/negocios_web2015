@@ -1,0 +1,44 @@
+MYSQL.
+
+CREATE DATABASE `almacenes` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+
+
+
+CREATE TABLE `almacenes` (
+  `al_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Código de almacen.',
+  `al_des` varchar(45) DEFAULT NULL COMMENT 'Descripción del almacen.',
+  `al_sup_al` int(11) DEFAULT NULL COMMENT 'Super almacen al cual pertenece este almacen.',
+  `al_sub_al` int(11) DEFAULT '0' COMMENT 'Sub almacenes que contiene este almacen.',
+  `al_tip` varchar(45) DEFAULT NULL COMMENT 'Tipo de almacen.',
+  `al_dir` varchar(45) DEFAULT NULL COMMENT 'Dirección del almacen.',
+  `al_tel` bigint(20) DEFAULT NULL COMMENT 'Teléfono principal del almacen.',
+  `al_tel2` bigint(20) DEFAULT NULL COMMENT 'Teléfono secundario del almacen.',
+  `al_mate` varchar(45) DEFAULT NULL COMMENT 'Material que maneja el almacen.',
+  `al_emp_id` int(11) DEFAULT NULL COMMENT 'Código de la empresa relacionada en el almacen.',
+  PRIMARY KEY (`al_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='tabla de referencia circular.\nobjeto de practica para Negocios Web.';
+
+
+
+CREATE TABLE `empresas` (
+  `emp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `emp_des` varchar(45) DEFAULT NULL,
+  `emp_rtn` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`emp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tipo_almacenes` (
+  `tipal_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipal_des` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`tipal_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `tipo_materiales` (
+  `tipma_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipma_des` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`tipma_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
