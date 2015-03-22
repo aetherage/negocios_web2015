@@ -6,12 +6,12 @@
  */
   require_once("libs/template_engine.php");
 
-  require_once("models/empresa/empresas.model.php");
+  require_once("models/tipo_material/tipo_materiales.model.php");
 
   function run(){
-    $empresas = array();
-    $empresas = obternerEmpresas();
-    renderizar("empresas", array("empresas" => $empresas));
+    $tipo_materiales = array();
+    $tipo_materiales = obternerTipoMateriales();
+    renderizar("tipo_materiales", array("tipo_materiales" => $tipo_materiales));
   }
 
   run();

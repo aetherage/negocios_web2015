@@ -50,32 +50,7 @@
     <label class="col4" for="al_emp_id">Código de la Empresa</label>
     <input class="col8" type="text" id="al_emp_id" name="al_emp_id" value="{{al_emp_id}}" {{disabled}}/>
   </div>
-    
-    
-   <!-- 
-  <div>
-    <label class="col4" for="undprnt">Unidad Padre</label>
-    <select class="col8" id="undprnt" name="undprnt" {{disabled}}>
-    {{foreach unidadesPadre}}
-      <option value="{{al_id}}" {{selected}}>
-        {{unddes}}
-      </option>
-    {{endfor unidadesPadre}}
-    </select>
-  </div>
 
-
-  <div>
-    <label class="col4" for="undtip">Tipo</label>
-    <select class="col8" id="undtip" name="undtip" {{disabled}}>
-      {{foreach unidadesTipo}}
-        <option value="{{undTipId}}" {{selected}}>
-          {{undTipDes}}
-        </option>
-      {{endfor unidadesTipo}}
-    </select>
-  </div>
-    -->
     
   <div class="right col12">
     <input type="hidden" id="btnacc" name="btnacc" value="{{almacenMode}}"/>

@@ -2,27 +2,26 @@
 
     require_once("libs/dao.php");
 
-    function obternerTipoAlmacen(){
-        $tipoalmacenes = array();
-        $sqlstr = "select * from tipo_almacen;";
-        $tipoalmacenes = obtenerRegistros($sqlstr);
-        return $tipoalmacenes;
+    function obternerTipoAlmacenes(){
+        $tipo_almacenes = array();
+        $sqlstr = "select * from tipo_almacenes;";
+        $tipo_almacenes = obtenerRegistros($sqlstr);
+        return $tipo_almacenes;
     }
-    function obtenerTipoAlmacen($tipoalmacenID){
-      $tipoalmacen = array();
+    function obtenerTipoAlmacen($tipo_almacenID){
+      $tipo_almacen = array();
       $sqlstr = "select * from tipo_almacenes where `tipal_id` = %d;";
-      $sqlstr = sprintf($sqlstr, $tipoalmacenID);
-      $tipoalmacen = obtenerUnRegistro($sqlstr);
-      return $tipoalmacen;
+      $sqlstr = sprintf($sqlstr, $tipo_almacenID);
+      $tipo_almacen = obtenerUnRegistro($sqlstr);
+      return $tipo_almacen;
     }
        
-    function insertarTipoAlmacen($tipoalmacen){
-      if($tipoalmacen && is_array($tipoalmacen)){
-         $sqlInsert = "INSERT INTO `tipo_almacenes` (`emp_des`, `emp_rtn`)
-                        VALUES('%s','%s');";
+    function insertarTipoAlmacen($tipo_almacen){
+      if($tipo_almacen && is_array($tipo_almacen)){
+         $sqlInsert = "INSERT INTO `tipo_almacenes` (`tipal_des`)
+                        VALUES('%s');";
          $sqlInsert = sprintf($sqlInsert,
-                        valstr($tipoalmacen["emp_des"]),
-                        valstr($tipoalmacen["emp_rtn"])
+                        valstr($tipo_almacen["tipal_des"])
                       );
          if(ejecutarNonQuery($sqlInsert)){
            return getLastInserId();
@@ -31,22 +30,21 @@
       return false;
     }
 
-    function actualizarTipoAlmacen($tipoalmacen){
-      if($tipoalmacen && is_array($tipoalmacen)){
-        $sqlUpdate = "update tipo_almacenes set emp_des=s%, emp_rtn=s%";
+    function actualizarTipoAlmacen($tipo_almacen){
+      if($tipo_almacen && is_array($tipo_almacen)){
+        $sqlUpdate = "update tipo_almacenes set tipal_des=s%";
         $sqlUpdate = sprintf($sqlUpdate,
-                        valstr($tipoalmacen["emp_des"]),
-                        valstr($tipoalmacen["emp_rtn"])
+                        valstr($tipo_almacen["tipal_des"])
                     );
         return ejecutarNonQuery($sqlUpdate);
       }
       return false;
     }
-    function borrarTipoAlmacen($tipoalmacenID){
-      if($tipoalmacenID){
+    function borrarTipoAlmacen($tipo_almacenID){
+      if($tipo_almacenID){
         $sqlDelete = "delete from tipo_almacenes where tipal_id=%d;";
         $sqlDelete = sprintf($sqlDelete,
-                      valstr($tipoalmacenID)
+                      valstr($tipo_almacenID)
                     );
         return ejecutarNonQuery($sqlDelete);
       }

@@ -6,137 +6,94 @@
  */
   require_once("libs/template_engine.php");
 
-  require_once("models/empresas.model.php");
+  require_once("models/tipo_almacen/tipo_almacenes.model.php");
 
   function run(){
     //htmlDatos, arreglo que contiene todas las substituciones
     // que se darán en la plantilla.
 
     $htmlDatos = array();
-    $htmlDatos["almacenTitle"] = "";
-    $htmlDatos["almacenMode"] = "";
-    $htmlDatos["al_id"] = "";
-    $htmlDatos["al_des"]="";
-    $htmlDatos["al_sup_al"]="";
-    $htmlDatos["al_tip"]="";
-      $htmlDatos["sicubSelected"]="selected";
-      $htmlDatos["nocubSelected"]="";
-    $htmlDatos["al_dir"] = "";
-    $htmlDatos["al_tel"] = "";
-    $htmlDatos["al_tel2"]="";
-    $htmlDatos["al_mate"]="";
+    $htmlDatos["tipo_tipo_almacenTitle"] = "";
+    $htmlDatos["tipo_tipo_almacenMode"] = "";
+    $htmlDatos["tipal_id"] = "";
+    $htmlDatos["tipal_des"]="";
     $htmlDatos["disabled"]="";
-      // $htmlDatos["desSelected"]="";
-      // $htmlDatos["desSelected"]="";
-      // $htmlDatos["desSelected"]="";
-      // $htmlDatos["desSelected"]="";
-      // Aqui van los tipos de material que se pueden almacenar.
-      
+
     if(isset($_GET["acc"])){
       switch($_GET["acc"]){
         //Manejando si es un insert
         case "ins":
-          $htmlDatos["almacenTitle"] = "Ingreso de Nuevo Almacen";
-          $htmlDatos["almacenMode"] = "ins";
+          $htmlDatos["tipo_almacenTitle"] = "Ingreso de Nuevo Tipo de Almacen";
+          $htmlDatos["tipo_almacenMode"] = "ins";
           //se determina si es una acción del formulario
           if(isset($_POST["btnacc"])){
-            $lastID = insertarAlmacen($_POST);
+            $lastID = insertarTipoAlmacen($_POST);
             if($lastID){
-              redirectWithMessage("¡Almacen Ingresado!","index.php?page=almacen&acc=upd&al_id=".$lastID);
+              redirectWithMessage("¡Almacen Ingresado!","index.php?page=tipo_almacen&acc=upd&tipal_id=".$lastID);
             }else{
               //Se obtiene los datos que estaban en el post
     
-              $htmlDatos["al_id"] = $_POST["al_id"];
-              $htmlDatos["al_des"]=$_POST["al_des"];
-              $htmlDatos["al_sup_al"]=$_POST["al_sup_al"];
-              $htmlDatos["al_tip"]=$_POST["al_tip"];
-                $htmlDatos["sicubSelected"]=($_POST["al_tip"] =="SICUB")?"selected":"";
-                $htmlDatos["nocubSelected"]=($_POST["al_tip"] =="NOCUB")?"selected":"";
-              $htmlDatos["al_dir"]=$_POST["al_dir"];
-              $htmlDatos["al_tel"]=$_POST["al_tel"];
-              $htmlDatos["al_tel2"]=$_POST["al_tel2"];
-              $htmlDatos["al_mate"]=$_POST["al_mate"];
-                //$htmlDatos["sicubSelected"]=($_POST["al_mate"] =="SICUB")?"selected":"";
-                //$htmlDatos["nocubSelected"]=($_POST["al_mate"] =="NOCUB")?"selected":"";
-                //$htmlDatos["nocubSelected"]=($_POST["al_mate"] =="NOCUB")?"selected":"";
-                //$htmlDatos["nocubSelected"]=($_POST["al_mate"] =="NOCUB")?"selected":"";
+              $htmlDatos["tipal_id"] = $_POST["tipal_id"];
+              $htmlDatos["tipal_des"]=$_POST["tipal_des"];
+
 
             }
           }
           //si no es una acción del post se muestra los datos
-          renderizar("almacen", $htmlDatos);
+          renderizar("tipo_almacen", $htmlDatos);
           break;
         //Manejando si es un Update
         case "upd":
           if(isset($_POST["btnacc"])){
             //implementar logica de guardado
-            if(actualizarAlmacen($_POST)){
+            if(actualizarTipoAlmacen($_POST)){
               //forzando a que se actualice con los datos de la db
-              redirectWithMessage("¡Almacen Actualizado!","index.php?page=almacen&acc=upd&al_id=".$_POST["al_id"]);
+              redirectWithMessage("¡Almacen Actualizado!","index.php?page=tipo_almacen&acc=upd&al_id=".$_POST["tipal_id"]);
             }
           }
-          if(isset($_GET["al_id"])){
-            $almacen = obtenerAlmacen($_GET["al_id"]);
-            if($almacen){
-              $htmlDatos["almacenTitle"] = "Actualizar ".$almacen["al_des"];
-              $htmlDatos["almacenMode"] = "upd";
-              $htmlDatos["al_id"] = $almacen["al_id"];
-              $htmlDatos["al_des"]=$almacen["al_des"];
-              $htmlDatos["al_sup_al"]=$almacen["al_sup_al"];
-              $htmlDatos["al_tip"]=$almacen["al_tip"];
-                $htmlDatos["sicubSelected"]=($almacen["al_tip"] =="SICUB")?"selected":"";
-                $htmlDatos["nocubSelected"]=($almacen["al_tip"] =="NOCUB")?"selected":"";
-              $htmlDatos["al_dir"]=$almacen["al_dir"];
-              $htmlDatos["al_tel"]=$almacen["al_tel"];
-              $htmlDatos["al_tel2"]=$almacen["al_tel2"];
-              $htmlDatos["al_mate"]=$almacen["al_mate"];
-              // $htmlDatos["sicubSelected"]=($almacen["al_tip"] =="SICUB")?"selected":"";
-              // $htmlDatos["sicubSelected"]=($almacen["al_tip"] =="SICUB")?"selected":"";
-              // $htmlDatos["sicubSelected"]=($almacen["al_tip"] =="SICUB")?"selected":"";
-              // $htmlDatos["nocubSelected"]=($almacen["al_tip"] =="NOCUB")?"selected":"";
-
-              renderizar("almacen", $htmlDatos);
+          if(isset($_GET["tipal_id"])){
+            $tipo_almacen = obtenerTipoAlmacen($_GET["tipal_id"]);
+            if($tipo_almacen){
+              $htmlDatos["tipo_almacenTitle"] = "Actualizar ".$tipo_almacen["tipal_des"];
+              $htmlDatos["tipo_almacenMode"] = "upd";
+              $htmlDatos["tipal_id"] = $tipo_almacen["tipal_id"];
+              $htmlDatos["tipal_des"]=$tipo_almacen["tipal_des"];
+              
+              renderizar("tipo_almacen", $htmlDatos);
             }else{
-              redirectWithMessage("¡Almacen No Encontrado!","index.php?page=empresas");
+              redirectWithMessage("¡Almacen No Encontrado!","index.php?page=tipo_almacenes");
             }
           }else{
-            redirectWithMessage("¡Almacen No Encontrado!","index.php?page=empresas");
+            redirectWithMessage("¡Almacen No Encontrado!","index.php?page=tipo_almacenes");
           }
           break;
         //Manejando un delete
         case "dlt":
         if(isset($_POST["btnacc"])){
           //implementar logica de guardado
-          if(borrarAlmacen($_POST["al_id"])){
+          if(borrarTipoAlmacen($_POST["tipal_id"])){
             //forzando a que se actualice con los datos de la db
-            redirectWithMessage("¡Almacen Borrada!","index.php?page=empresas");
+            redirectWithMessage("¡Almacen Borrada!","index.php?page=tipo_almacenes");
           }
         }
-          if(isset($_GET["al_id"])){
-            $almacen = obtenerAlmacen($_GET["al_id"]);
-            if($almacen){
-              $htmlDatos["almacenTitle"] = "¿Desea borrar ".$almacen["unddes"] . "?";
-              $htmlDatos["almacenMode"] = "dlt";
-              $htmlDatos["al_id"]=$almacen["al_id"];
-              $htmlDatos["unddes"]=$almacen["unddes"];
-              $htmlDatos["undprnt"]=$almacen["undprnt"];
-              $htmlDatos["undfprnt"]=$almacen["undfprnt"];
-              $htmlDatos["undest"]=$almacen["undest"];
-              $htmlDatos["actSelected"]=($almacen["undest"] =="ACT")?"selected":"";
-              $htmlDatos["inaSelected"]=($almacen["undest"] =="INA")?"selected":"";
-              $htmlDatos["desSelected"]=($almacen["undest"] =="DES")?"selected":"";
-              $htmlDatos["undtip"]=$almacen["undtip"];
+          if(isset($_GET["tipal_id"])){
+            $tipo_almacen = obtenerTipoAlmacen($_GET["tipal_id"]);
+            if($tipo_almacen){
+              $htmlDatos["tipo_almacenTitle"] = "¿Desea borrar ".$tipo_almacen["tipal_des"] . "?";
+              $htmlDatos["tipo_almacenMode"] = "dlt";
+              $htmlDatos["tipal_id"]=$tipo_almacen["tipal_id"];
+              $htmlDatos["tipal_des"]=$tipo_almacen["tipal_des"];
               $htmlDatos["disabled"]='disabled="disabled"';
-              renderizar("almacen", $htmlDatos);
+              renderizar("tipo_almacen", $htmlDatos);
             }else{
-              redirectWithMessage("¡Almacen No Encontrada!","index.php?page=empresas");
+              redirectWithMessage("¡Almacen No Encontrada!","index.php?page=tipo_almacenes");
             }
           }else{
-            redirectWithMessage("¡Almacen No Encontrada!","index.php?page=empresas");
+            redirectWithMessage("¡Almacen No Encontrada!","index.php?page=tipo_almacenes");
           }
           break;
         defualt:
-          redirectWithMessage("¡Acción no permitida!","index.php?page=empresas");
+          redirectWithMessage("¡Acción no permitida!","index.php?page=tipo_almacenes");
           break;
       }
     }

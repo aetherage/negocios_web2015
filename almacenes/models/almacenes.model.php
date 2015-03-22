@@ -9,6 +9,23 @@
         return $almacenes;
     }
 
+    /*function obtenerSuperAlmacenes(){
+        // Esta funcion encuentra todos los SUPER Almacenes que hay en MYSQL
+        $supeAlmacenes = array();
+        $sqlstr = "SELECT al_des FROM almacenes.almacenes where al_sup_al = 0;";
+        $supeAlmacenes = obtenerRegistros($sqlstr);
+        return $supeAlmacenes;
+    }
+    
+    function obtenerSubAlmacenes($almacenID){
+        // Esta funcion cuenta todos los Almacenes que estan contenidos en un SuperAlmacen.
+        $subAlmacenes = array();
+        $sqlstr = "select count(*) from almacenes.almacenes where al_sup_al =".$almacenID.";";
+        $subAlmacenes = obtenerRegistros($sqlstr);
+        return $subAlmacenes;
+        
+    }
+    */
     function obtenerAlmacen($almacenID){
       $almacen = array();
       $sqlstr = "select * from almacenes where al_id = %d;";
@@ -53,7 +70,7 @@
 
     function actualizarAlmacen($almacen){
       if($almacen && is_array($almacen)){
-        $sqlUpdate = "update almacenes set al_des=s%, al_sup_al=d%, al_tip=s%, al_tel=d%, al_tel2=d%, al_mate=s%, al_dir=s%, al_emp_id=d%;";
+        $sqlUpdate = "update almacenes set `al_des`='%s', `al_sup_al`='%d', `al_tip`='%s', `al_tel`='%d', `al_tel2`='%d', `al_mate`='%s', `al_dir`='%s',`al_emp_id`='d%' where `al_id`='%d';";
         $sqlUpdate = sprintf($sqlUpdate,
                         valstr($almacen["al_des"]),
                         valstr($almacen["al_sup_al"]),
@@ -62,7 +79,8 @@
                         valstr($almacen["al_tel2"]),
                         valstr($almacen["al_mate"]),
                         valstr($almacen["al_dir"]),
-                        valstr($almacen["al_emp_id"])
+                        valstr($almacen["al_emp_id"]),
+                        valstr($almacen["al_id"])
                     );
         return ejecutarNonQuery($sqlUpdate);
       }

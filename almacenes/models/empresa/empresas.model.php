@@ -3,10 +3,10 @@
     require_once("libs/dao.php");
 
     function obternerEmpresas(){
-        $empresaes = array();
+        $empresas = array();
         $sqlstr = "select * from empresas;";
-        $empresaes = obtenerRegistros($sqlstr);
-        return $empresaes;
+        $empresas = obtenerRegistros($sqlstr);
+        return $empresas;
     }
     function obtenerEmpresa($empresaID){
       $empresa = array();

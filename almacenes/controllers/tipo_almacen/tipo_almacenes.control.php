@@ -6,12 +6,12 @@
  */
   require_once("libs/template_engine.php");
 
-  require_once("models/empresa/empresas.model.php");
+  require_once("models/tipo_almacen/tipo_almacenes.model.php");
 
   function run(){
-    $empresas = array();
-    $empresas = obternerEmpresas();
-    renderizar("empresas", array("empresas" => $empresas));
+    $tipo_almacenes = array();
+    $tipo_almacenes = obternerTipoAlmacenes();
+    renderizar("tipo_almacenes", array("tipo_almacenes" => $tipo_almacenes));
   }
 
   run();

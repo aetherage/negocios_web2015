@@ -12,6 +12,8 @@
                 <li><a href="index.php">Inicio</a></li>
                 <li><a href="index.php?page=almacenes">Almacenes</a></li>
                 <li><a href="index.php?page=empresas">Empresas</a></li>
+                <li><a href="index.php?page=tipo_almacenes">Tipos de Almacenes</a></li>
+                <li><a href="index.php?page=tipo_materiales">Tipos de Material</a></li>
             </ul>
             {{{page_content}}}
             <div class="footer">

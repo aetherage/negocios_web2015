@@ -18,6 +18,7 @@
     $htmlDatos["al_id"] = "";
     $htmlDatos["al_des"]="";
     $htmlDatos["al_sup_al"]="";
+   // $htmlDatos["al_sub_al"]=obtenerSubAlmacenes();
     $htmlDatos["al_tip"]="";
       $htmlDatos["sicubSelected"]="selected";
       $htmlDatos["nocubSelected"]="";
@@ -115,17 +116,18 @@
           if(isset($_GET["al_id"])){
             $almacen = obtenerAlmacen($_GET["al_id"]);
             if($almacen){
-              $htmlDatos["almacenTitle"] = "¿Desea borrar ".$almacen["unddes"] . "?";
+              $htmlDatos["almacenTitle"] = "¿Desea borrar ".$almacen["al_des"] . "?";
               $htmlDatos["almacenMode"] = "dlt";
-              $htmlDatos["al_id"]=$almacen["al_id"];
-              $htmlDatos["unddes"]=$almacen["unddes"];
-              $htmlDatos["undprnt"]=$almacen["undprnt"];
-              $htmlDatos["undfprnt"]=$almacen["undfprnt"];
-              $htmlDatos["undest"]=$almacen["undest"];
-              $htmlDatos["actSelected"]=($almacen["undest"] =="ACT")?"selected":"";
-              $htmlDatos["inaSelected"]=($almacen["undest"] =="INA")?"selected":"";
-              $htmlDatos["desSelected"]=($almacen["undest"] =="DES")?"selected":"";
-              $htmlDatos["undtip"]=$almacen["undtip"];
+              $htmlDatos["al_id"] = $almacen["al_id"];
+              $htmlDatos["al_des"]=$almacen["al_des"];
+              $htmlDatos["al_sup_al"]=$almacen["al_sup_al"];
+              $htmlDatos["al_tip"]=$almacen["al_tip"];
+                $htmlDatos["sicubSelected"]=($almacen["al_tip"] =="SICUB")?"selected":"";
+                $htmlDatos["nocubSelected"]=($almacen["al_tip"] =="NOCUB")?"selected":"";
+              $htmlDatos["al_dir"]=$almacen["al_dir"];
+              $htmlDatos["al_tel"]=$almacen["al_tel"];
+              $htmlDatos["al_tel2"]=$almacen["al_tel2"];
+              $htmlDatos["al_mate"]=$almacen["al_mate"];
               $htmlDatos["disabled"]='disabled="disabled"';
               renderizar("almacen", $htmlDatos);
             }else{
